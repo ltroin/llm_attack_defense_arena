@@ -9,7 +9,7 @@ This toolkit is designed for conducting attacks on and applying defenses to vari
 - Linux
 - Python 3.9 or later,Cuda 12.1
 - Access to two 40GB memory GPU resources is recommended for certain attack types, especially when using models like vicuna-13b as attackrer for Tap and Pair attacks or mistral for BergeonMethod defense.
-- Dependencies listed in `requirements.txt` file. Install them using `pip install -r requirements.txt`.
+- Dependencies listed in `install.ipynb` file. Running every block.
 - If you encounter nccl error, make sure you have one nccl version with `pip install nvidia-nccl-cu12==2.18.1`.
 
 ## Additional Requirements
