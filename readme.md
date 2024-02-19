@@ -81,13 +81,19 @@ echo $OPENAI_API_KEY
     python main.py --model [Model Name] --mode attack --type [Attack Type] 
     ```
 
-3. **Applying a Defense**:
+3. **Analyze the Attack**:
+    This step requires download huggingface model zhx123/ftrobertallm, and place it under `./models/custom`
+    ```bash
+    python main.py --model [Model Name] --mode process
+    ```
+
+4. **Applying a Defense**:
     If you are running bergeron, Please also download `mistral`
     ```bash
     python main.py --model [Model Name] --mode defense --type [Defense Type]
     ```
 
-4. **Customizing the Toolkit**: Users can modify `Attacks` and `attack.py` or `Defense` and `defence.py` to add new attack or defense types or to change the default parametors for specific models. The existing ones are the optimal based on the original papers.
+5. **Customizing the Toolkit**: Users can modify `Attacks` and `attack.py` or `Defense` and `defence.py` to add new attack or defense types or to change the default parametors for specific models. The existing ones are the optimal based on the original papers.
 
 ## Important Notes
 
