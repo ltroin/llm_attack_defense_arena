@@ -613,7 +613,7 @@ def load_json(path):
         with open(json_file, 'r') as file:
             data = json.load(file)
 
-        if filename_part == "evaluation" or "Merged":
+        if filename_part == "evaluation" or filename_part == "Merged":
             print(f"Skipping {filename_part}")
             continue
         # Preprocess the data based on the filename
