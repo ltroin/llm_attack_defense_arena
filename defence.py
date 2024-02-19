@@ -129,7 +129,7 @@ class Baseline(BaseDefenseModel):
             'model_path': model, #[vicuna,llama2',llama]
             'file_path': file, # this one and the one above should be the same
             'benign_check': "false", #test on benign data or not
-            'defense_method': "paraphrase", #perplexity or paraphrase
+            'defense_method': "perplexity", #perplexity or paraphrase
             'perplexity_threshold': "5",
             'perplexity_window': "10",
         }
