@@ -53,7 +53,16 @@ def run_defense(model_name, defense_type):
     Please Note: If model_name is expected to certain defense, the file_path should be about that model.
     The reason is you can not check modelA response with modelB to see if the defense is working.
     """
-    file_path = f"../../Results/{model_name}/Merged_{model_name}.json"
+    if 'llama' in model_name:
+        directory = "llama"
+        suffix = "llama-2"
+    elif 'vicuna' in model_name:
+        directory = "vicuna"
+        suffix = "vicuna"
+    elif 'gpt' in model_name:
+        directory = "gpt"
+        suffix = "gpt-3.5"
+    file_path = f"../../Results/{directory}/Merged_{suffix}.json"
     if defense_type == "RALLM":
         print(f"Applying RALLM defense to {model_name} using file {file_path}")
         defence.RALLM(model=model_name, file=file_path).run()

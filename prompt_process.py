@@ -618,7 +618,7 @@ def load_json(path):
         # Preprocess the data based on the filename
         temp,efficiency,success_rate,success_prompts,success_questions,success_responses,wrappers = preprocess_data(filename_part, data)
         # success_prompts = preprocess_data(filename_part, data)
-        print(f'{filename_part} efficiency: {efficiency}'+ '\n' + f'{filename_part} success rate: {success_rate}')
+        print(f'{filename_part} efficiency: {efficiency}')
         if filename_part == "jailbroken" or filename_part == "TemplateJailbreak" or filename_part == "Parameters":
             success_prompts = [[prompt, question,response,wrapper] for prompt, question, response,wrapper in zip(success_prompts, success_questions,success_responses,wrappers)]
         else:
