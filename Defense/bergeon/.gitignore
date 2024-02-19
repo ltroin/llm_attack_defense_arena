@@ -1,0 +1,10 @@
+.idea
+venv
+.env
+data/*.py
+data/evaluations
+data/prompts
+data/responses
+docs/pdf
+docs/researchNotes
+docs/alignmentFailures

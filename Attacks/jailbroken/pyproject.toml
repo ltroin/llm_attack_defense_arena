@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jailbroken"
+version = "0.0.1"
+
+dependencies = [
+  "Jinja2>=3.1.2",
+  "numpy>=1.24.2",
+  "openai>=0.27.0",
+  "python-dotenv>=1.0.0",
+  "seaborn>=0.12.2",
+  "tiktoken>=0.3.2",
+  "anthropic>=0.2.6",
+  "black",
+  "isort",
+]
+
+[project.scripts]
+jailbreak_all = "scripts.jailbreak_all:main"
+jailbreak_generated = "scripts.jailbreak_generated:main"
+
+[tool.setuptools]
+packages = ["jailbroken", "scripts"]
+
+[tool.pytest.ini_options]
+addopts = ["--ignore=third_party"]
+
+[tool.pyright]
+exclude = ["third_party"]
+
+[tool.black]
+force-exclude = "third_party"
