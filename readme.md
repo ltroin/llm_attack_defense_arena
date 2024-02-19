@@ -73,6 +73,7 @@ echo $OPENAI_API_KEY
     ```bash
     python main.py --model [Model to be downloaded] --need-download "true"
     ```
+    After downloading model, you will find it under `./models/<your model>`
 
 2. **Running an Attack**:
     If you are running Tap or Pair, Please also downlaod `vicuna13`
@@ -80,13 +81,15 @@ echo $OPENAI_API_KEY
     ```bash
     python main.py --model [Model Name] --mode attack --type [Attack Type] 
     ```
+    
+    After running the attack, you should see the results in `./Results/<your model>`
 
 3. **Analyze the Attack**:
-    This step requires download huggingface model zhx123/ftrobertallm
+    This step requires download huggingface model `zhx123/ftrobertallm`.
     ```bash
     python main.py --model [Model Name] --mode process
     ```
-
+    After running the analysis, you should see the results in `./Results/<your model>`
 4. **Applying a Defense**:
     If you are running bergeron, Please also download `mistral`
     ```bash

@@ -613,8 +613,8 @@ def load_json(path):
         with open(json_file, 'r') as file:
             data = json.load(file)
 
-        # if filename_part != "Parameters":
-        #     continue
+        if filename_part == "evaluation" or "Merged":
+            continue
         # Preprocess the data based on the filename
         temp,efficiency,success_rate,success_prompts,success_questions,success_responses,wrappers = preprocess_data(filename_part, data)
         # success_prompts = preprocess_data(filename_part, data)
