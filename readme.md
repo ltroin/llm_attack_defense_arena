@@ -95,6 +95,7 @@ echo $OPENAI_API_KEY
     ```bash
     python main.py --model [Model Name] --mode defense --type [Defense Type]
     ```
+    After running the analysis, you should see the results in `./Results/defense/<your model>`
 
 5. **Customizing the Toolkit**: Users can modify `Attacks` and `attack.py` or `Defense` and `defence.py` to add new attack or defense types or to change the default parametors for specific models. The existing ones are the optimal based on the original papers.
 
