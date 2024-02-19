@@ -626,7 +626,7 @@ def load_json(path):
             success_prompts = [[prompt, question,response] for prompt, question, response in zip(success_prompts, success_questions,success_responses)]
         merged_prompts.append({'attack': filename_part, 'prompts': success_prompts})
         questions_count.append(temp)
-    print(f'Total prompts: {total_prompts}')
+    # print(f'Total prompts: {total_prompts}')
     with open(f'./Results/{directoryName}/Merged_{modelname}.json', 'w') as f:
         json.dump(merged_prompts, f, indent=4)
     with open(f'./Results/{directoryName}/evaluation.json', 'w') as f:
