@@ -626,14 +626,14 @@ def load_json(path):
         merged_prompts.append({'attack': filename_part, 'prompts': success_prompts})
         questions_count.append(temp)
     print(f'Total prompts: {total_prompts}')
-    # with open(f'./Results/{directoryName}/Merged_{modelname}.json', 'w') as f:
-    #     json.dump(merged_prompts, f, indent=4)
-    # with open(f'./Results/{directoryName}/evaluation.json', 'w') as f:
-    #     json.dump(questions_count, f, indent=4)
-    with open(f'./TemplateCheck/Merged_{modelname}.json', 'w') as f:
+    with open(f'./Results/{directoryName}/Merged_{modelname}.json', 'w') as f:
         json.dump(merged_prompts, f, indent=4)
-    with open(f'./TemplateCheck/evaluation.json', 'w') as f:
+    with open(f'./Results/{directoryName}/evaluation.json', 'w') as f:
         json.dump(questions_count, f, indent=4)
+    # with open(f'./TemplateCheck/Merged_{modelname}.json', 'w') as f:
+    #     json.dump(merged_prompts, f, indent=4)
+    # with open(f'./TemplateCheck/evaluation.json', 'w') as f:
+    #     json.dump(questions_count, f, indent=4)
 
 def process_GCG(file_path):
     with open(file_path, 'r') as file:
