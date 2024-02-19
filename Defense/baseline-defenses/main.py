@@ -185,7 +185,7 @@ class Baseline:
             # is_paraphrase = "paraphrase" if self.defense_method == "paraphrase" else "perplexity"
             with open (f"../../Results/defense/{self.directory_name}/baseline_{self.model_name}_benign.json",'w') as f:
                 json.dump(self.final_results,f,indent=4)
-        # else:
+        else:
             with open (f"../../Results/defense/{self.directory_name}/baseline_{self.model_name}.json",'w') as f:
                 json.dump(self.final_results,f,indent=4)
 
