@@ -84,7 +84,7 @@ def run_defense(model_name, defense_type):
 def main():
     parser = argparse.ArgumentParser(description="Run attack and defense mechanisms on AI models")
     parser.add_argument('--model', choices=['gpt-3.5-turbo', 'llama', 'vicuna','vicuna13','mistral'], required=False, help='Model to attack or defend')
-    parser.add_argument('--mode', choices=['attack', 'defense'], required=False, help='Whether to run an attack or apply a defense or process the results.')
+    parser.add_argument('--mode', choices=['attack', 'defense','process'], required=False, help='Whether to run an attack or apply a defense or process the results.')
     parser.add_argument('--type', required=False, help='Type of attack or defense to run')
     parser.add_argument('--need-download', required=False,default="false", help='do you need to download the model?')
     args = parser.parse_args()
