@@ -70,17 +70,18 @@ echo $OPENAI_API_KEY
 1. **Download Models**: The script can automatically download the necessary models based on the selected attack or defense. This feature can be toggled off if models are already available locally.
 
     ```bash
-    python main.py --need-download ["true"|"false"]
+    python main.py --model [Model to be downloaded] --need-download "true"
     ```
 
 2. **Running an Attack**:
-
+    If you are running Tap or Pair, Please also downlaod `vicuna13`
+    
     ```bash
     python main.py --model [Model Name] --mode attack --type [Attack Type] 
     ```
 
 3. **Applying a Defense**:
-
+    If you are running bergeron, Please also download `mistral`
     ```bash
     python main.py --model [Model Name] --mode defense --type [Defense Type]
     ```
