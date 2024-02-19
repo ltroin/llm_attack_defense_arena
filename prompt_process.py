@@ -614,6 +614,7 @@ def load_json(path):
             data = json.load(file)
 
         if filename_part == "evaluation" or "Merged":
+            print(f"Skipping {filename_part}")
             continue
         # Preprocess the data based on the filename
         temp,efficiency,success_rate,success_prompts,success_questions,success_responses,wrappers = preprocess_data(filename_part, data)
