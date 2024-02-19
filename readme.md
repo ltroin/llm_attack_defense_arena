@@ -82,7 +82,7 @@ echo $OPENAI_API_KEY
     ```
 
 3. **Analyze the Attack**:
-    This step requires download huggingface model zhx123/ftrobertallm, and place it under `./models/custom`
+    This step requires download huggingface model zhx123/ftrobertallm
     ```bash
     python main.py --model [Model Name] --mode process
     ```

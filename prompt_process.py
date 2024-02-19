@@ -257,7 +257,7 @@ def preprocess_data(filename, data):
     complete_questions = []
     success_questions = []
     success_responses = []
-    model = RoBERTaPredictor('./models/custom', device='cuda:0')
+    model = RoBERTaPredictor('zhx123/ftrobertallm', device='cuda:0')
     final_results = []
     wrappers=[]
     if filename == 'AutoDAN':
