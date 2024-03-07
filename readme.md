@@ -13,11 +13,11 @@ This toolkit is designed for conducting attacks on and applying defenses to vari
 - If you encounter nccl error, make sure you have one nccl version with `pip uninstall nvidia-nccl-cu11, pip uninstall nvidia-nccl-cu12, pip install nvidia-nccl-cu12==2.18.1`.
 
 ## Additional Requirements
-1. Run the following command in your terminal, replacing yourkey with your API key. 
+1. Run the following command in your terminal, replacing <Your key> with your API key. 
 
 ```
 echo "export OPENAI_API_KEY='<Your key>'" >> ~/.zshrc
-echo "export OPENAI_API_KEY='<AEGIS_API_KEY>'" >> ~/.zshrc
+echo "export AEGIS_API_KEY='<Your key>'" >> ~/.zshrc
 ```
 
 2. Update the shell with the new variable:
