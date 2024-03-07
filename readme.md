@@ -118,3 +118,9 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 ## Citation
 
+@article{xu2024llm,
+  title={LLM Jailbreak Attack versus Defense Techniques--A Comprehensive Study},
+  author={Xu, Zihao and Liu, Yi and Deng, Gelei and Li, Yuekang and Picek, Stjepan},
+  journal={arXiv preprint arXiv:2402.13457},
+  year={2024}
+}
