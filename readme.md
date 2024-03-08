@@ -58,7 +58,7 @@ echo $OPENAI_API_KEY
 - Moderation
 - BergeonMethod
 
-## Features
+## 🚀 Features
 
 - **Various SOTA Attacks and Defenses**: Implements a variety of attack strategies and defense mechanisms tailored for LLMs.
 - **Model Compatibility**: Supports multiple LLM architectures, including GPT-3.5 Turbo, LLaMA, and Vicuna.
@@ -66,7 +66,7 @@ echo $OPENAI_API_KEY
 - **Extendability**: Modulely Design facilitates the extension with new methods to this project.
 
 
-## Usage
+## 🛠 Usage
 
 1. **Download Models**: The script can automatically download the necessary models based on the selected attack or defense. This feature can be toggled off if models are already available locally.
 
@@ -116,7 +116,7 @@ Thirdly, add your method to `main.py`.
 
 
 
-## License
+## 📝 License
 
 This project is licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
