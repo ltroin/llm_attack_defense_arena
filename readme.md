@@ -1,10 +1,10 @@
 # A Comprehensive Study of Jailbreak Attack versus Defense for Large Language Models
 
-## Overview
+## 🔍 Overview
 
 This toolkit is designed for conducting attacks on and applying defenses to various AI models. It supports a range of attack and defense mechanisms, providing a flexible framework for assessing model robustness. The script allows users to specify the model to target, the type of attack or defense to apply, and manages model downloads if necessary.
 
-## Requirements
+## 📋 Requirements
 
 - Linux
 - Python 3.9 or later,Cuda 12.1
@@ -12,7 +12,7 @@ This toolkit is designed for conducting attacks on and applying defenses to vari
 - Dependencies listed in `install.ipynb` file. Running every block.
 - If you encounter nccl error, make sure you have one nccl version with `pip uninstall nvidia-nccl-cu11, pip uninstall nvidia-nccl-cu12, pip install nvidia-nccl-cu12==2.18.1`.
 
-## Additional Requirements
+## 🔑Additional Requirements
 1. Run the following command in your terminal, replacing <Your key> with your API key. 
 
 ```
@@ -30,13 +30,13 @@ source ~/.zshrc
 ```
 echo $OPENAI_API_KEY
 ```
-## Supported Models
+## 🖥️ Supported Models
 
 - gpt-3.5-turbo
 - llama
 - vicuna
 
-## Supported Attacks
+## ⚡Supported Attacks
 
 - AutoDAN
 - GPTFuzz
@@ -48,7 +48,7 @@ echo $OPENAI_API_KEY
 - Parameters
 - GCG
 
-## Supported Defenses
+## 🛡️Supported Defenses
 
 - RALLM
 - Baseline
@@ -99,12 +99,12 @@ echo $OPENAI_API_KEY
 
 5. **Customizing the Toolkit**: Users can modify `Attacks` and `attack.py` or `Defense` and `defence.py` to add new attack or defense types or to change the default parametors for specific models. The existing ones are the optimal based on the original papers.
 
-## Important Notes
+## ❗Important Notes
 
 - When running Tap and Pair attacks, vicuna13(Vicuna-13b) is used by default and requires substantial GPU resources.
 - The BergeonMethod defense defaults to using the mistral model. Adjustments for model preference should be made in the `defence.py` script.
 
-## Contributing
+## 👥Contributing
 
 Contributions to extend the toolkit's capabilities, improve efficiency, or add new features are welcome. Please submit a pull request with a clear description of your changes. Additionally, we provide templates for attack and defense methods for integration with your own method. 
 
