@@ -332,6 +332,34 @@ class BergeonMethod(BaseDefenseModel):
             sp.terminate()
             sp.wait()
 
+##TODO Define your own program logic
+class Customized(BaseDefenseModel):
+    ##TODO Define the constructor with the parameters you would like to expose
+    def __init__(self,file_path):
+        # Set up default parameters
+        super().__init__()
+        self.parameters = {
+            'file_path': file_path,
+            'benign_check': "false",
+        }
+
+
+    def run(self):
+        print("Running main.py with specified parameters for Customized Defense")
+        command = "python"
+        script = "main.py"
+        args = args_to_cmd(self.parameters)
+
+        cmd = ['stdbuf', '-oL', command, '-u', script] + args
+        # Start the subprocess and capture its output
+        try:
+            ##TODO Change the path to the directory where your defense is located
+            with subprocess.Popen(cmd, cwd="./Defense/Customized_PATH", stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, bufsize=1) as sp:
+                for line in sp.stdout:
+                    logging.info(line)
+        finally:
+            sp.terminate()
+            sp.wait()
 
 def main():
     print("The defense is starting...")

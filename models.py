@@ -179,7 +179,7 @@ class LocalLLM(LLM):
         torch.cuda.empty_cache()
         
         return outputs
-    
+    # From GCG paper
     def get_embedding_matrix(self):
         # from llm-attacks
         if isinstance(self.model, GPTJForCausalLM) or isinstance(self.model, GPT2LMHeadModel):
@@ -190,13 +190,14 @@ class LocalLLM(LLM):
             return self.model.base_model.embed_in.weight
         else:
             raise ValueError(f"Unknown model type: {type(self.model)}")
+    # From GCG paper
     def calc_loss(self, model, embeddings, embeddings_attack, embeddings_target, targets):
         full_embeddings = torch.hstack([embeddings, embeddings_attack, embeddings_target])
         logits = model(inputs_embeds=full_embeddings).logits
         loss_slice_start = len(embeddings[0]) + len(embeddings_attack[0])
         loss = nn.CrossEntropyLoss()(logits[0, loss_slice_start - 1 : -1, :], targets)
         return loss, logits[:, loss_slice_start - 4:-1, :]
-
+    # From GCG paper
     def create_one_hot_and_embeddings(self,tokens, embed_weights, model):
         one_hot = torch.zeros(
             tokens.shape[0], embed_weights.shape[0], device=model.device, dtype=embed_weights.dtype
