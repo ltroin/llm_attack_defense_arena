@@ -107,17 +107,13 @@ echo $OPENAI_API_KEY
 ## Contributing
 
 Contributions to extend the toolkit's capabilities, improve efficiency, or add new features are welcome. Please submit a pull request with a clear description of your changes. Additionally, we provide templates for attack and defense methods for integration with your own method. 
-```
+
 First, modify `attack_template.py` and `defence_template.py`. There are seven steps in total; detailed comments can be found inside the file. 
-```
 
-```
 Secondly, create an attack class and defense class in `attack.py` and `defence.py`, respectively. Demo code is provided in these files. 
-```
 
-```
 Thirdly, add your method to `main.py`.
-```
+
 
 
 ## License
