@@ -114,6 +114,7 @@ Secondly, create an attack class and defense class in `attack.py` and `defence.p
 
 Thirdly, add your method to `main.py`.
 
+When processing the raw results from your customized attack method, please add your attack name accordingly in preprocess_data() of prompt_process.py
 
 
 ## 📝 License
