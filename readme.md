@@ -1,4 +1,4 @@
-# A Comprehensive Study of Jailbreak Attack versus Defense for Large Language Models
+# LLM Jailbreak Attack-Defense Arena: A Framework for Benchmarking LLM Jailbreak Attack and Defense Techniques
 
 ## 🔍 Overview
 
