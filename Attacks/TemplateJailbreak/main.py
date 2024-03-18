@@ -20,8 +20,18 @@ sys.path.append(parent_parent_dir)
 import models
 import torch
 import gc
-REPEAT_TIME_PER_QUESTION = 5
 
+# import sys
+
+# original_sys_path = sys.path.copy()
+# project_root_path = os.path.join(os.path.dirname(__file__), '../../')
+# sys.path.append(project_root_path)
+from global_config import get_config  
+config = get_config()
+# MAX_ALLOWED_ITERATION_PER_QUESTION = config.MAX_ALLOWED_ITERATION_PER_QUESTION
+REPEAT_TIME_PER_QUESTION = config.REPEAT_TIME_PER_QUESTION
+#a reset function to reset the sys.path
+# sys.path = original_sys_path
 final_res = []
 
 def replace_names(text):

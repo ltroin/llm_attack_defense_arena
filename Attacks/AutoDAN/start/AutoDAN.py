@@ -9,8 +9,19 @@ import argparse
 import os
 import pandas as pd
 import json
-MAX_ALLOWED_ITERATION_PER_QUESTION = 75
-REPEAT_TIME_PER_QUESTION = 5
+
+import sys
+
+original_sys_path = sys.path.copy()
+project_root_path = os.path.join(os.path.dirname(__file__), '../../../')
+sys.path.append(project_root_path)
+from global_config import get_config  
+config = get_config()
+MAX_ALLOWED_ITERATION_PER_QUESTION = config.MAX_ALLOWED_ITERATION_PER_QUESTION
+REPEAT_TIME_PER_QUESTION = config.REPEAT_TIME_PER_QUESTION
+#a reset function to reset the sys.path
+sys.path = original_sys_path
+
 finished_questions = set()
 def generate(model, tokenizer, input_ids, assistant_role_slice, gen_config=None):
     if gen_config is None:

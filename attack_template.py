@@ -1,15 +1,24 @@
-import sys
 import os
 import argparse
 import json
 import models
 import torch
-parent_parent_dir = os.path.abspath(os.path.join(os.getcwd(), '../../'))
-sys.path.append(parent_parent_dir)
+
+import sys
+
+original_sys_path = sys.path.copy()
+#change  "../../" the correct path to the root path
+project_root_path = os.path.join(os.path.dirname(__file__), '../../')
+sys.path.append(project_root_path)
+from global_config import get_config  
+config = get_config()
 #For generative methods, you can set the maximum number of iterations allowed per question
-MAX_ALLOWED_ITERATION_PER_QUESTION = 75
+MAX_ALLOWED_ITERATION_PER_QUESTION = config.MAX_ALLOWED_ITERATION_PER_QUESTION
 #Repetition time for each question
-REPEAT_TIME_PER_QUESTION = 5
+REPEAT_TIME_PER_QUESTION = config.REPEAT_TIME_PER_QUESTION
+#a reset function to reset the sys.path
+sys.path = original_sys_path
+
 
 Step 2:
 ##TODO import the modules required in your method

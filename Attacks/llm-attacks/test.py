@@ -17,8 +17,19 @@ np.random.seed(20)
 # Set the random seed for PyTorch
 torch.manual_seed(20)
 finished_questions = set()
-MAX_ALLOWED_ITERATION_PER_QUESTION = 75
-REPEAT_TIME_PER_QUESTION = 5
+
+import sys
+
+original_sys_path = sys.path.copy()
+project_root_path = os.path.join(os.path.dirname(__file__), '../../')
+sys.path.append(project_root_path)
+from global_config import get_config  
+config = get_config()
+MAX_ALLOWED_ITERATION_PER_QUESTION = config.MAX_ALLOWED_ITERATION_PER_QUESTION
+REPEAT_TIME_PER_QUESTION = config.REPEAT_TIME_PER_QUESTION
+#a reset function to reset the sys.path
+sys.path = original_sys_path
+
 # If you are using CUDA (i.e., a GPU), also set the seed for it
 torch.cuda.manual_seed_all(20)
 final_results = []

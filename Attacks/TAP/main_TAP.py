@@ -14,8 +14,20 @@ import gc
 import torch
 from vllm.model_executor.parallel_utils.parallel_state import destroy_model_parallel
 from collections import defaultdict
-MAX_ALLOWED_ITERATION_PER_QUESTION = 75
-REPEAT_TIME_PER_QUESTION = 5
+
+import sys
+
+original_sys_path = sys.path.copy()
+project_root_path = os.path.join(os.path.dirname(__file__), '../../')
+sys.path.append(project_root_path)
+from global_config import get_config  
+config = get_config()
+MAX_ALLOWED_ITERATION_PER_QUESTION = config.MAX_ALLOWED_ITERATION_PER_QUESTION
+REPEAT_TIME_PER_QUESTION = config.REPEAT_TIME_PER_QUESTION
+#a reset function to reset the sys.path
+sys.path = original_sys_path
+
+
 question_map_score_list = defaultdict(int)
 
 def clean_attacks_and_convs(attack_list, convs_list):

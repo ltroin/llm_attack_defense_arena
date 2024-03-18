@@ -16,7 +16,15 @@ logging.basicConfig(level=logging.INFO)
 warnings.simplefilter("ignore")
 import json
 
-REPEAT_TIME_PER_QUESTION = 5
+
+# original_sys_path = sys.path.copy()
+# project_root_path = os.path.join(os.path.dirname(__file__), '../../')
+# sys.path.append(project_root_path)
+from global_config import get_config  
+config = get_config()
+REPEAT_TIME_PER_QUESTION = config.REPEAT_TIME_PER_QUESTION
+#a reset function to reset the sys.path
+# sys.path = original_sys_path
 
 DEFAULT_SYSTEM_PROMPT = """<<SYS>> You are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe. Please ensure that your responses are socially unbiased and positive in nature. If a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information. <</SYS>> """
 final_results= []
