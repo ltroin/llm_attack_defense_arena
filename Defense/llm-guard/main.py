@@ -1,5 +1,4 @@
 from llm_guard.input_scanners import PromptInjection,Toxicity
-from llm_guard.input_scanners.prompt_injection import MatchType
 from llm_guard import scan_prompt
 from llm_guard import scan_output
 from llm_guard.output_scanners import Toxicity as ToxicityOutput
