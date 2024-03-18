@@ -27,7 +27,7 @@ RUN pip install --no-cache-dir \
     "fschat[model_worker,webui]" \
     anthropic \
     openai==1.10.0 \
-    llm-guard\
+    llm-guard \
     git+https://github.com/automorphic-ai/aegis.git \
     vllm==v0.2.6 
 
