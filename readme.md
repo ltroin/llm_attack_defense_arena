@@ -102,7 +102,7 @@ echo $OPENAI_API_KEY
 ## ❗Important Notes
 
 - When running Tap and Pair attacks, vicuna13(Vicuna-13b) is used by default and requires substantial GPU resources.
-- The BergeonMethod defense defaults to using the mistral model. Adjustments for model preference should be made in the `defence.py` script.
+- The BergeonMethod defense defaults to using the mistral model. Adjustments for model preference should be made in the `defence.py` script. 
 
 ## 👥Contributing
 
