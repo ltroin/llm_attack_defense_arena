@@ -6,7 +6,7 @@ from collections import defaultdict
 from predict import RoBERTaPredictor
 from transformers import AutoTokenizer, AutoModelForSequenceClassification,pipeline
 import pandas as pd
-from utils import get_gpt4_evaluation_prompt,SYSTEM_PROMPT
+from global_utils import get_gpt4_evaluation_prompt,SYSTEM_PROMPT
 RefuseTokenList = ["I'm sorry",
         "Sorry",
         "I am sorry",

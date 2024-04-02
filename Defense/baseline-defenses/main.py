@@ -163,6 +163,7 @@ class Baseline:
             self.final_results[self.file_name].append(f"The benign question pass rate of is {len(benign_question_set)}/{len(total_question_set)}")
 
         else:
+
             # print(f"{self.file_name} has {len(self.failed_prompts)/len(self.prompts)} failed jailbreak prompts")
             # print(f"{self.file_name} has {len(self.success_prompts_after_input)/len(self.prompts)} success jailbreak prompts after input")
             # print(f"{self.file_name} has {len(self.fail_prompts_after_output)/len(self.prompts)} failed jailbreak prompts after output")
@@ -286,6 +287,8 @@ if __name__=="__main__":
         if not baseline.success_prompts_after_input:
             baseline.final_results[baseline.file_name] = []
             print(f"no success prompts after input for {baseline.file_name}")
+            baseline.evaluate()
+            baseline.clear()
             continue
         # if baseline.defense_method == "perplexity":
         baseline.evaluate()
