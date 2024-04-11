@@ -144,7 +144,12 @@ def main(args):
 
     end_time = time.time()
     elapsed_minutes = (end_time - start_time) / 60
+    if not success_jailbreak:
+            success_jailbreak[file_name].append(f"The Malicious prompt pass rate is 0/{len(attack.file_name_prompts[file_name])}")
+            total_question_set = set(pair.original_prompt[1] for pair in attack.file_name_prompts[file_name])
+            success_jailbreak[file_name].append(f"The Malicious question pass rate is 0/{len(total_question_set)}")
     success_jailbreak[last_file_name].append(f"Elapsed time: {elapsed_minutes} minutes")
+
 
     if not os.path.exists(f"../../Results/defense/{directory_name}"):
             os.makedirs(f"../../Results/defense/{directory_name}")

@@ -2,158 +2,84 @@ import os
 import argparse
 import json
 import models
-import torch
-
 import sys
+from pathlib import Path
 
-original_sys_path = sys.path.copy()
-#change  "../../" the correct path to the root path
-project_root_path = os.path.join(os.path.dirname(__file__), '../../')
-sys.path.append(project_root_path)
-from global_config import get_config  
-config = get_config()
-#For generative methods, you can set the maximum number of iterations allowed per question
-MAX_ALLOWED_ITERATION_PER_QUESTION = config.MAX_ALLOWED_ITERATION_PER_QUESTION
-#Repetition time for each question
-REPEAT_TIME_PER_QUESTION = config.REPEAT_TIME_PER_QUESTION
-#a reset function to reset the sys.path
-sys.path = original_sys_path
+from global_config import get_config
+from global_utils import load_data, some_processing, setup_environment, reset_sys_path
+
+original_sys_path = setup_environment()
+CONFIG = get_config()
+MAX_ALLOWED_ITERATION_PER_QUESTION = CONFIG["MAX_ALLOWED_ITERATION_PER_QUESTION"]
+REPEAT_TIME_PER_QUESTION = CONFIG["REPEAT_TIME_PER_QUESTION"]
+reset_sys_path(original_sys_path)
 
 
-Step 2:
-##TODO import the modules required in your method
-"""
-import fastchat
-import openai
-...
-"""
-
-Step 3:
-##TODO Define your own program logic
-def main(args):
-    model_path_dicts = {"gpt-4": "gpt-4-1106-preview","gpt-3.5-turbo":"gpt-3.5-turbo","llama": "../../models/meta-llama/Llama-2-7b-chat-hf","vicuna" : "../../models/lmsys/vicuna-7b-v1.5"}
-    model_path = model_path_dicts[model_path]
-    openAI_model = False
+def initialize_model(model_path):
+    """Initialize the model based on the given path."""
     if 'llama' in model_path:
-        model_name = 'llama-2'
-        directory_name='llama'
-    elif 'gpt-3.5' in model_path:
-        model_name = 'gpt-3.5'
-        openAI_model = True
-        directory_name='gpt'
+        return models.LocalVLLM(model_path), 'llama-2', 'llama', False
+    elif 'gpt-3.5' in model_path or 'gpt-4' in model_path:
+        model_name = 'gpt-3.5' if '3.5' in model_path else 'gpt-4'
+        return models.OpenAILLM(model_path), model_name, 'gpt', True
     elif 'vicuna' in model_path:
-        model_name = 'vicuna'
-        directory_name='vicuna'
-    elif 'gpt-4' in model_path:
-        model_name = 'gpt-4'
-        openAI_model = True
-        directory_name='gpt'
+        return models.LocalVLLM(model_path), 'vicuna', 'vicuna', False
     else:
-        model_name = 'unknown'
-        raise ValueError("Unknown model name, supports only vicuna, llama-2, gpt-3.5 and gpt-4")
-    if openAI_model:
-        """
-        The default value usage of generate method is as follows:
-        output = local_model.generate(local_model.create_conv_prompt(prompt), max_tokens=100,temperature=1.0,top_p=1.0,frequency_penalty=0.0,presence_penalty=0.0,n=1)
-        """
-        local_model = models.OpenAILLM(model_path)
-    else:
-        """
-        if not use LocalVLLM, you can use LocalLLM.
-        To load another model into the second GPU  
-        use the following code:
-        local_model = models.LocalLLM2(model_path)
-
-        The default value usage of generate method is as follows:
-        output = local_model.generate(local_model.create_conv_prompt(prompt), temperature=1.0, max_tokens=150,top_p=1,top_k=-1, repetition_penalty=1.0,frequency_penalty=0.0,presence_penalty=0.0,n=1)
-        """
-        local_model = models.LocalVLLM(model_path)
-    """
-    To use the checker, you can use the following code:
-    """
+        raise ValueError("Unsupported model. Supports only vicuna, llama-2, gpt-3.5, and gpt-4.")
 
 
-    finished_questions=set()
-    
-    Step 4:
-    ##TODO load the data
-    data = load_data()
-    results = []
-    
-    Step 5:
-    ##CASE 1: generative methods
-    for question in data:
-        CURRENT_ITERATION = 0
-        CURRENT_REPEAT = 0
-        while CURRENT_REPEAT < REPEAT_TIME_PER_QUESTION and CURRENT_ITERATION < MAX_ALLOWED_ITERATION_PER_QUESTION:
-            CURRENT_REPEAT += 1
-            for j in range(num_steps):
-                if question in finished_questions:
-                    raise ValueError("This question has been finished, you are not expected to see this error message. Please check the code.")
-                if CURRENT_ITERATION >= MAX_ALLOWED_ITERATION_PER_QUESTION:
-                        finished_questions.add(question)
-                        CURRENT_REPEAT = REPEAT_TIME_PER_QUESTION
-                        break
-                CURRENT_ITERATION += 1
-                
-                Step 6:
-                ##TODO Your attack logic
-                
-                prompt = ...
-                output =...
-
-                
-                Step 7:
-                ##save the results
-                record = {
-                            'prompt': prompt,
-                            'response': output,
-                            'question': question,
-                            "iteration": CURRENT_ITERATION,
-                            "other": "other information you want to save"
-                        }
-                results.append(record)
-    Step 5:
-    ##CASE 2: Other type methods, for example, Template-based methods
-    for question in data:
-
-        Step 6:
-        ##TODO Your attack logic
-        prompts = some_processing(question)
-        responses = local_model.generate_batch(prompts,n=REPEAT_TIME_PER_QUESTION)
-        questions = [question]*REPEAT_TIME_PER_QUESTION
-
-        Step 7:
-        ##save the results
-        i = 0
-        for prompt, question, response in zip(prompts,responses,questions):
-        # response = response[0].outputs[0].text
-            i = i%REPEAT_TIME_PER_QUESTION + 1
-            if i == 0:
-                i = REPEAT_TIME_PER_QUESTION
-            results.append({"question":question,"prompt":prompt,"response":response,"iteration":i})
-
-
-    if not os.path.exists(f"../../../Results/{directory_name}"):
-            os.makedirs(f"../../../Results/{directory_name}")
-    with open(f"../../../Results/{directory_name}/{Your_method_Name}_{model_name}.json", 'w') as f:
+def save_results(directory_name, model_name, method_name, results):
+    """Save the generated results to a file."""
+    results_path = Path(f"../../../Results/{directory_name}")
+    results_path.mkdir(parents=True, exist_ok=True)
+    with open(results_path / f"{method_name}_{model_name}.json", 'w') as f:
         json.dump(results, f, indent=4)
 
-    
 
-Step 1:
-##TODO modify the entry with args necessary for your method
+def main(model_path, method_name, num_steps=10):
+    """
+    The default value usage of generate method is as follows:
+    output = local_model.generate(local_model.create_conv_prompt(prompt), max_tokens=100,temperature=1.0,top_p=1.0,frequency_penalty=0.0,presence_penalty=0.0,n=1)
+    """
+    local_model, model_name, directory_name, openAI_model = initialize_model(model_path)
+
+    data = load_data()
+    finished_questions = set()
+    results = []
+
+    for question in data:
+        current_iteration, current_repeat = 0, 0
+        #delete the while loop if running for template based attacks
+        while current_repeat < REPEAT_TIME_PER_QUESTION and current_iteration < MAX_ALLOWED_ITERATION_PER_QUESTION:
+            current_repeat += 1
+            for _ in range(num_steps):
+                if question in finished_questions or current_iteration >= MAX_ALLOWED_ITERATION_PER_QUESTION:
+                    finished_questions.add(question)
+                    current_repeat = REPEAT_TIME_PER_QUESTION
+                    break
+                current_iteration += 1
+                # Your attack logic goes here.
+                # prompt, output = your_attack_logic(...)
+                # Dummy placeholders for actual logic
+                prompt, output = "TODO: Your attack logic here", "Attack output"
+
+                record = {
+                    'prompt': prompt, # mandatory field
+                    'response': output, # mandatory field
+                    'question': question, # mandatory field
+                    "iteration": current_iteration,
+                    # Include any other information here
+                }
+                results.append(record)
+        
+
+    save_results(directory_name, model_name, method_name, results)
+
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description="Script to attack AI models.")
+    parser.add_argument("--model_path", type=str, required=True, help="Path to the model to be attacked.")
+    parser.add_argument("--method_name", type=str, required=True, help="Name of the attack method.")
+    parser.add_argument("--num_steps", type=int, required=True, help="Number of steps to run the attack.")
 
-    parser = argparse.ArgumentParser()
-    """
-    parser.add_argument(
-        "--model_path",
-        type=str,
-        default="gpt-3.5-turbo",
-        help="Name of the model to be attacked",
-    )
-    ...
-    """
     args = parser.parse_args()
-    main(args)
+    main(args.model_path, args.method_name)
