@@ -133,3 +133,51 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+# Claude Code settings
+.claude/
+
+# Additional testing artifacts  
+.pytest_cache/
+htmlcov/
+.coverage
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Model files (typically large)
+models/
+*.bin
+*.safetensors
+*.pt
+*.pth
+*.ckpt
+
+# Results and data
+Results/
+logs/
+outputs/
+wandb/
+
+# API keys and secrets
+.env.local
+.env.production
+*.key
+*.secret
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

@@ -1,0 +1,163 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "llm-jailbreak-arena"
+version = "0.1.0"
+description = "A framework for benchmarking LLM jailbreak attack and defense techniques"
+authors = ["LLM Arena Team"]
+readme = "readme.md"
+license = "Apache-2.0"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+# Essential dependencies only 
+numpy = "*"
+pandas = "*"
+python-dotenv = "*"
+tqdm = "*"
+# API clients (lightweight)
+openai = "*"
+anthropic = "*"
+# ML dependencies as optional extras
+torch = {version = "*", optional = true}
+transformers = {version = "*", optional = true}
+accelerate = {version = "*", optional = true}
+sentencepiece = {version = "*", optional = true}
+protobuf = {version = "*", optional = true}
+nltk = {version = "*", optional = true}
+google-generativeai = {version = "*", optional = true}
+pytz = {version = "*", optional = true}
+tenacity = {version = "*", optional = true}
+absl-py = {version = "*", optional = true}
+ml-collections = {version = "*", optional = true}
+openpyxl = {version = "*", optional = true}
+fastparquet = {version = "*", optional = true}
+pyarrow = {version = "*", optional = true}
+urllib3 = {version = "*", optional = true}
+fschat = {version = "*", optional = true}
+huggingface-hub = {version = "*", optional = true}
+safetensors = {version = "*", optional = true}
+aegis = {git = "https://github.com/automorphic-ai/aegis.git", optional = true}
+llm-guard = {version = "*", optional = true}
+vllm = {version = "*", optional = true}
+
+[tool.poetry.extras]
+ml = ["torch", "transformers", "accelerate", "sentencepiece", "protobuf", "nltk", "huggingface-hub", "safetensors"]
+attack = ["ml", "google-generativeai", "pytz", "tenacity", "absl-py", "ml-collections", "urllib3", "fschat"]
+defense = ["ml", "llm-guard", "aegis"]
+inference = ["ml", "vllm"]
+data = ["openpyxl", "fastparquet", "pyarrow"]
+full = ["ml", "attack", "defense", "inference", "data"]
+
+[tool.poetry.group.dev.dependencies]
+# Testing framework
+pytest = "^7.4.0"
+pytest-cov = "^4.1.0"
+pytest-mock = "^3.12.0"
+pytest-xdist = "^3.3.0"
+# Code quality
+black = "^23.0.0"
+isort = "^5.12.0"
+flake8 = "^6.0.0"
+mypy = "^1.5.0"
+
+[tool.poetry.scripts]
+test = "pytest"
+tests = "pytest"
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = [
+    "-ra",
+    "--strict-markers",
+    "--strict-config",
+    "--cov=.",
+    "--cov-report=term-missing:skip-covered",
+    "--cov-report=html:htmlcov",
+    "--cov-report=xml:coverage.xml",
+    "--cov-fail-under=80",
+]
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+markers = [
+    "unit: Unit tests",
+    "integration: Integration tests",
+    "slow: Slow tests that take more than a few seconds",
+    "gpu: Tests that require GPU",
+    "api: Tests that require API keys",
+]
+
+[tool.coverage.run]
+source = ["."]
+omit = [
+    "*/tests/*",
+    "*/test_*",
+    "*/.venv/*",
+    "*/venv/*",
+    "*/site-packages/*",
+    "*/dist/*",
+    "*/build/*",
+    "*/__pycache__/*",
+    "*/htmlcov/*",
+    "*/models/*",
+    "*/Results/*",
+    "*/third_party/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
+show_missing = true
+skip_covered = false
+
+[tool.black]
+line-length = 88
+target-version = ['py39']
+include = '\\.pyi?$'
+exclude = '''
+/(
+    \\.eggs
+  | \\.git
+  | \\.hg
+  | \\.mypy_cache
+  | \\.tox
+  | \\.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+  | third_party
+)/
+'''
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 88
+known_first_party = ["llm_arena"]
+skip_glob = ["**/third_party/**"]
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+exclude = [
+    "third_party/",
+    "models/",
+    "Results/",
+]
